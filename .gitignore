@@ -1,0 +1,5 @@
+__pycache__/
+debs/
+dist/
+env/
+fieldworks-libs/
