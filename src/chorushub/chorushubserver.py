@@ -1,16 +1,18 @@
 ﻿import logging
 import sys
 
+from pathlib import Path
+
 from .advertiser import Advertiser
 from .chorushuboptions import ChorusHubOptions
 from .hgserverunner import HgServeRunner
 
 # Setup Python.NET
 import pythonnet  # noqa: F401
-dist_dir = '/home/nate/g/chorus-hub/dist'
+dist_dir = Path(f'{__file__}/../../../dist')
 pythonnet.load(
     'mono',
-    libmono=f'{dist_dir}/libmono-2.0.so.1',
+    libmono=f'{dist_dir.resolve()}/libmono-2.0.so.1',
 )
 import clr  # noqa: E402
 
