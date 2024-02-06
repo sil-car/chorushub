@@ -232,7 +232,7 @@ parts:
   app:
     after:
       - mono
-      - source
+      - sil-files
     plugin: python
     source: https://github.com/sil-car/chorushub.git
     source-depth: 1
