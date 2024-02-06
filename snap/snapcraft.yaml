@@ -231,6 +231,7 @@ parts:
       done
 
       # Fix wrong symlink.
+      mkdir -p "${CRAFT_PART_INSTALL}/usr/share"
       rm -f "${CRAFT_PART_INSTALL}/usr/share/.mono"
       ls -r -s "${CRAFT_PART_INSTALL}/etc/mono/certstore" "${CRAFT_PART_INSTALL}/usr/share/.mono"
 
