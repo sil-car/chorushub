@@ -227,11 +227,11 @@ parts:
       )
       for p in "${pkgs[@]}"; do
         wget "https://download.mono-project.com/repo/ubuntu/pool/main/m/mono/${p}"
-        dpkg-deb -x "$p" base
+        dpkg-deb -x "$p" "$CRAFT_PART_INSTALL"
       done
 
       # Copy files to install dirs.
-      cp -av "${CRAFT_PART_SRC}/base/"* "${CRAFT_PART_INSTALL}"
+      # cp -av "${CRAFT_PART_SRC}/base/"* "${CRAFT_PART_INSTALL}"
 
   app:
     after:
