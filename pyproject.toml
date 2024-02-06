@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dependencies = [
+    "cffi",
+    "clr-loader",
+    "psutil",
+    "pycparser",
+    "pythonnet",
+]
+name = "chorushub"
+version = "5.1.0"
+dynamic = ["readme"]
+
+[project.scripts]
+chorushub = "chorushub.app:main"
+
+[tool.setuptools]
+packages = "chorushub"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"], content-type = "text/plain"}
