@@ -244,8 +244,8 @@ parts:
     override-pull: |
       craftctl default
       snap_ver=$(grep 'version =' ${CRAFT_PART_SRC}/pyproject.toml | grep -Eo '[0-9.]+')
-      craftctl set-version "${snap_ver}"
-      craftctl set-grade "stable"
+      craftctl set version="${snap_ver}"
+      craftctl set grade="stable"
     build-packages:
       - python3-pip
     override-build: |
