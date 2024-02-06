@@ -1,7 +1,7 @@
 ﻿import logging
-import sys
+# import sys
 
-from pathlib import Path
+# from pathlib import Path
 
 from .advertiser import Advertiser
 from .chorushuboptions import ChorusHubOptions
@@ -9,14 +9,14 @@ from .hgserverunner import HgServeRunner
 
 # Setup Python.NET
 import pythonnet  # noqa: F401
-dist_dir = Path(f'{__file__}/../../../dist')
-pythonnet.load(
-    'mono',
-    libmono=f'{dist_dir.resolve()}/libmono-2.0.so.1',
-)
+# dist_dir = Path(f'{__file__}/../../../dist')
+# pythonnet.load(
+#     'mono',
+#     libmono=f'{dist_dir.resolve()}/libmono-2.0.so.1',
+# )
 import clr  # noqa: E402
 
-sys.path.append('/home/nate/g/chorus-hub/dist')
+# sys.path.append('/home/nate/g/chorus-hub/dist')
 clr.AddReference('System.ServiceModel')
 clr.AddReference('ChorusHub')
 clr.AddReference('LibChorus')
