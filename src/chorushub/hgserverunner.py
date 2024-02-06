@@ -1,4 +1,5 @@
 import logging
+import os
 import psutil
 import subprocess
 # import threading
@@ -61,6 +62,8 @@ class HgServeRunner:
             self._hg_serve_proc = subprocess.Popen(
                 ['hg', *arguments],
                 cwd=str(self._root_folder),
+                stdout=os.devnull,
+                stderr=subprocess.STDOUT,
             )
             logging.debug(f"Started hg server from {str(self._root_folder)} on *:{self.port}.")  # noqa: E501
             return True
