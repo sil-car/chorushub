@@ -18,8 +18,8 @@ dynamic = ["readme"]
 chorushub = "chorushub.app:main"
 
 [tool.setuptools]
-package_dir = {"" = "src"}
 packages = ["chorushub"]
+package-dir = {"" = "src"}
 
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"], content-type = "text/plain"}
