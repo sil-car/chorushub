@@ -3,3 +3,4 @@ debs/
 dist/
 env/
 fieldworks-libs/
+mono_crash*
