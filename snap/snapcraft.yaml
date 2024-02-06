@@ -242,7 +242,7 @@ parts:
     source: https://github.com/sil-car/chorushub.git
     source-depth: 1
     override-pull: |
-      craftctl pull
+      craftctl default
       snap_ver=$(grep 'version =' ${CRAFT_PART_SRC}/pyproject.toml | grep -Eo '[0-9.]+')
       craftctl set-version "${snap_ver}"
       craftctl set-grade "stable"
@@ -256,7 +256,7 @@ parts:
       # pip3 install --user dephell[full]
       # $HOME/.local/bin/dephell deps convert --from-path=pyproject.toml --from-format=poetry --to-path=setup.py --to-format=setuppy
 
-      craftctl build
+      craftctl default
 
   # cleanup:
   #   # https://forum.snapcraft.io/t/reduce-size-of-qt5-app-snap/31030/7
