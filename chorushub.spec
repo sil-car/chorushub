@@ -14,7 +14,9 @@ a = Analysis(
     noarchive=False,
 )
 
-extra_libs = Tree('build/prime', typecode='BINARY')
+hg_libs = Tree()
+mono_libs = Tree('build/prime/mono', typecode='BINARY')
+sil_libs = Tree('build/prime/sil', typecode='BINARY')
 
 pyz = PYZ(a.pure)
 
@@ -23,7 +25,8 @@ exe = EXE(
     a.scripts,
     a.binaries,
     a.datas,
-    extra_libs,
+    mono_libs,
+    sil_libs,
     [],
     name='chorushub',
     debug=False,

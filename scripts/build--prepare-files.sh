@@ -18,6 +18,7 @@ clean() {
 
 # Grab fieldworks-applications focal package.
 mkdir -p "${STAGE_DIR}/sil"
+mkdir -p "${PRIME_DIR}/sil"
 # NOTE: flexbridge also has these packages, but they're older versions.
 debfile="fieldworks-applications_9.0.17.119+focal1_amd64.deb"
 wget -NP "$PKGS_DIR" "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
@@ -28,13 +29,14 @@ libs=(
   LibChorus.dll
   SIL.Core.dll
 )
-mkdir -p "${PRIME_DIR}/usr/lib"
+mkdir -p "${PRIME_DIR}/sil/usr/lib"
 for l in "${libs[@]}"; do
-  cp -av "${STAGE_DIR}/sil/usr/lib/fieldworks/${l}" "${PRIME_DIR}/usr/lib"
+  cp -av "${STAGE_DIR}/sil/usr/lib/fieldworks/${l}" "${PRIME_DIR}/sil/usr/lib"
 done
 
 # Grab mono-6.12 focal packages.
 mkdir -p "${STAGE_DIR}/mono"
+mkdir -p "${PRIME_DIR}/mono"
 pkgs=(
   ca-certificates-mono_6.12.0.200-0xamarin2+ubuntu2004b1_all.deb
   libmono-2.0-1_6.12.0.200-0xamarin2+ubuntu2004b1_amd64.deb
@@ -201,4 +203,4 @@ mkdir -p "${STAGE_DIR}/mono/usr/share"
 rm -f "${STAGE_DIR}/mono/usr/share/.mono"
 ln -r -s "${STAGE_DIR}/mono/etc/mono/certstore" "${STAGE_DIR}/mono/usr/share/.mono"
 # Copy needed files to prime dir.
-cp -av "${STAGE_DIR}/mono"/* "${PRIME_DIR}"
+cp -av "${STAGE_DIR}/mono"/* "${PRIME_DIR}/mono"
