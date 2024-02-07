@@ -3,11 +3,11 @@
 import shutil
 
 a = Analysis(
-    ['src/chorushub/app.py'],
+    [shutil.which('chorushub'), shutil.which('hg')],
     pathex=[],
     binaries=[(shutil.which('hg'), 'usr/bin')],
     datas=[],
-    hiddenimports=['hgdemandimport', 'mercurial', 'os', 'sys'],
+    hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
