@@ -14,7 +14,7 @@ a = Analysis(
     noarchive=False,
 )
 
-extra_libs = Tree('build/prime', prefix='usr/lib', typecode='BINARY')
+extra_libs = Tree('build/prime', typecode='BINARY')
 
 pyz = PYZ(a.pure)
 
