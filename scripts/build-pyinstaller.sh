@@ -14,3 +14,5 @@ if [[ ! -d "$PRIME_DIR" || -z $(find "$PRIME_DIR" -type f) ]]; then
     echo "Prime directory doesn't exist or has no files: $PRIME_DIR"
     exit 1
 fi
+
+pyinstaller chorushub.spec
