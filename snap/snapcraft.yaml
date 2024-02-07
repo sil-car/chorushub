@@ -57,9 +57,9 @@ parts:
         LibChorus.dll
         SIL.Core.dll
       )
-      # for l in "${libs[@]}"; do
-      #   cp -av "${CRAFT_PART_SRC}/base/usr/lib/fieldworks/"$l "${CRAFT_PART_INSTALL}/usr/lib"
-      # done
+      for l in "${libs[@]}"; do
+        cp -av "${CRAFT_PART_SRC}/base/usr/lib/fieldworks/"$l "${CRAFT_PART_INSTALL}/usr/lib"
+      done
 
   mono:
     plugin: nil
