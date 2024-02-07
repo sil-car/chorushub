@@ -16,7 +16,15 @@ a = Analysis(
 )
 
 # hg_libs = Tree()
-mono_libs = Tree('build/prime/mono', typecode='BINARY')
+mono_libs = Tree(
+    'build/prime/mono',
+    excludes=[
+        'usr/bin',
+        'usr/include',
+        'usr/share',
+    ],
+    typecode='BINARY'
+)
 sil_libs = Tree('build/prime/sil', typecode='BINARY')
 
 pyz = PYZ(a.pure)
