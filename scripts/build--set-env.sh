@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-scripts_dir="$(dirname "$0")"
+scripts_dir="$(realpath "$(dirname "$0")")"
 REPO_DIR="$(dirname "$scripts_dir")"
 if [[ ! -d "${REPO_DIR}/.git" ]]; then
   echo "Error: Not repo base dir: $REPO_DIR"
