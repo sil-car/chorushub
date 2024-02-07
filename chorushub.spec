@@ -4,7 +4,7 @@
 a = Analysis(
     ['src/chorushub/app.py'],
     pathex=[],
-    binaries=['./env/bin/hg'],
+    binaries=[('./env/bin/hg', 'bin')],
     datas=[],
     hiddenimports=[],
     hookspath=[],
