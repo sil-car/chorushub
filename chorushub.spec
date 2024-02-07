@@ -19,9 +19,9 @@ a = Analysis(
 mono_libs = Tree(
     'build/prime/mono',
     excludes=[
-        'usr/bin',
-        'usr/include',
-        'usr/share',
+        'usr/bin/*',
+        'usr/include/*',
+        'usr/share/*',
     ],
     typecode='BINARY'
 )
