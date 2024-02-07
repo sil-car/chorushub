@@ -18,6 +18,7 @@ a = Analysis(
 # hg_libs = Tree()
 mono_libs = Tree(
     'build/prime/mono/usr/lib',
+    prefix='usr/lib',
     excludes=['pkgconfig'],
     typecode='BINARY',
 )
