@@ -34,6 +34,7 @@ libs=(
   LibChorus.dll
   SIL.Core.dll
 )
+mkdir -p "${prime_dir}/usr/lib"
 for l in "${libs[@]}"; do
   cp -av "${stage_dir}/usr/lib/fieldworks/${l}" "${prime_dir}/usr/lib"
 done
