@@ -17,13 +17,9 @@ a = Analysis(
 
 # hg_libs = Tree()
 mono_libs = Tree(
-    'build/prime/mono',
-    excludes=[
-        'usr/bin/*',
-        'usr/include/*',
-        'usr/share/*',
-    ],
-    typecode='BINARY'
+    'build/prime/mono/usr/lib',
+    excludes=['pkgconfig'],
+    typecode='BINARY',
 )
 sil_libs = Tree('build/prime/sil', typecode='BINARY')
 
