@@ -1,47 +1,40 @@
 #!/usr/bin/env bash
 
 scripts_dir="$(dirname "$0")"
-repo_dir="$(dirname "$scripts_dir")"
-if [[ ! -d "${repo_dir}/.git" ]]; then
-  echo "Error: Not repo base dir: $repo_dir"
-  exit 1
-fi
-build_dir="${repo_dir}/build"
-pkgs_dir="${build_dir}/pkgs"
-stage_dir="${build_dir}/stage"
-prime_dir="${build_dir}/prime"
-mkdir -p "$pkgs_dir" "$stage_dir" "$prime_dir"
+source ${scripts_dir}/build--set-env.sh
+
+mkdir -p "$PKGS_DIR" "$STAGE_DIR" "$PRIME_DIR"
 
 clean() {
   for d in pkgs stage prime; do
     if [[ $1 == "$d" ]]; then
-      rm -rf "${build_dir:?}/${d}"
+      rm -rf "${BUILD_DIR:?}/${d}"
     fi
   done
   if [[ -z $1 || $1 == 'all' ]]; then
-    rm -rf "${build_dir:?}"/*
+    rm -rf "${BUILD_DIR:?}"/*
   fi
 }
 
 # Grab fieldworks-applications focal package.
-mkdir -p "${stage_dir}/sil"
+mkdir -p "${STAGE_DIR}/sil"
 # NOTE: flexbridge also has these packages, but they're older versions.
 debfile="fieldworks-applications_9.0.17.119+focal1_amd64.deb"
-wget -NP "$pkgs_dir" "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
-dpkg-deb -x "${pkgs_dir}/${debfile}" "${stage_dir}/sil"
+wget -NP "$PKGS_DIR" "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
+dpkg-deb -x "${PKGS_DIR}/${debfile}" "${STAGE_DIR}/sil"
 # Copy needed files to prime dir.
 libs=(
   ChorusHub.exe
   LibChorus.dll
   SIL.Core.dll
 )
-mkdir -p "${prime_dir}/usr/lib"
+mkdir -p "${PRIME_DIR}/usr/lib"
 for l in "${libs[@]}"; do
-  cp -av "${stage_dir}/sil/usr/lib/fieldworks/${l}" "${prime_dir}/usr/lib"
+  cp -av "${STAGE_DIR}/sil/usr/lib/fieldworks/${l}" "${PRIME_DIR}/usr/lib"
 done
 
 # Grab mono-6.12 focal packages.
-mkdir -p "${stage_dir}/mono"
+mkdir -p "${STAGE_DIR}/mono"
 pkgs=(
   ca-certificates-mono_6.12.0.200-0xamarin2+ubuntu2004b1_all.deb
   libmono-2.0-1_6.12.0.200-0xamarin2+ubuntu2004b1_amd64.deb
@@ -200,12 +193,12 @@ pkgs=(
   mono-xbuild_6.12.0.200-0xamarin2+ubuntu2004b1_all.deb
 )
 for p in "${pkgs[@]}"; do
-  wget -NP "$pkgs_dir" "https://download.mono-project.com/repo/ubuntu/pool/main/m/mono/${p}"
-  dpkg-deb -x "${pkgs_dir}/${p}" "${stage_dir}/mono"
+  wget -NP "$PKGS_DIR" "https://download.mono-project.com/repo/ubuntu/pool/main/m/mono/${p}"
+  dpkg-deb -x "${PKGS_DIR}/${p}" "${STAGE_DIR}/mono"
 done
 # Fix wrong symlink.
-mkdir -p "${stage_dir}/mono/usr/share"
-rm -f "${stage_dir}/mono/usr/share/.mono"
-ln -r -s "${stage_dir}/mono/etc/mono/certstore" "${stage_dir}/mono/usr/share/.mono"
+mkdir -p "${STAGE_DIR}/mono/usr/share"
+rm -f "${STAGE_DIR}/mono/usr/share/.mono"
+ln -r -s "${STAGE_DIR}/mono/etc/mono/certstore" "${STAGE_DIR}/mono/usr/share/.mono"
 # Copy needed files to prime dir.
-cp -av "${stage_dir}/mono"/* "${prime_dir}"
+cp -av "${STAGE_DIR}/mono"/* "${PRIME_DIR}"
