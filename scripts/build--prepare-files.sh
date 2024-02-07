@@ -24,10 +24,11 @@ clean() {
 }
 
 # Grab fieldworks-applications focal package.
+mkdir -p "${stage_dir}/sil"
 # NOTE: flexbridge also has these packages, but they're older versions.
 debfile="fieldworks-applications_9.0.17.119+focal1_amd64.deb"
 wget -P "$pkgs_dir" "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
-dpkg-deb -x "${pkgs_dir}/${debfile}" "$stage_dir"
+dpkg-deb -x "${pkgs_dir}/${debfile}" "${stage_dir}/sil"
 # Copy needed files to prime dir.
 libs=(
   ChorusHub.exe
@@ -36,10 +37,11 @@ libs=(
 )
 mkdir -p "${prime_dir}/usr/lib"
 for l in "${libs[@]}"; do
-  cp -av "${stage_dir}/usr/lib/fieldworks/${l}" "${prime_dir}/usr/lib"
+  cp -av "${stage_dir}/sil/usr/lib/fieldworks/${l}" "${prime_dir}/usr/lib"
 done
 
 # Grab mono-6.12 focal packages.
+mkdir -p "${stage_dir}/mono"
 pkgs=(
   ca-certificates-mono_6.12.0.200-0xamarin2+ubuntu2004b1_all.deb
   libmono-2.0-1_6.12.0.200-0xamarin2+ubuntu2004b1_amd64.deb
@@ -199,11 +201,11 @@ pkgs=(
 )
 for p in "${pkgs[@]}"; do
   wget -P "$pkgs_dir" "https://download.mono-project.com/repo/ubuntu/pool/main/m/mono/${p}"
-  dpkg-deb -x "${pkgs_dir}/${p}" "$stage_dir"
+  dpkg-deb -x "${pkgs_dir}/${p}" "${stage_dir}/mono"
 done
 # Fix wrong symlink.
-mkdir -p "${stage_dir}/usr/share"
-rm -f "${stage_dir}/usr/share/.mono"
-ln -r -s "${stage_dir}/etc/mono/certstore" "${stage_dir}/usr/share/.mono"
+mkdir -p "${stage_dir}/mono/usr/share"
+rm -f "${stage_dir}/mono/usr/share/.mono"
+ln -r -s "${stage_dir}/mono/etc/mono/certstore" "${stage_dir}/mono/usr/share/.mono"
 # Copy needed files to prime dir.
-cp -av "${stage_dir}"/* "${prime_dir}"
+cp -av "${stage_dir}/mono"/* "${prime_dir}"
