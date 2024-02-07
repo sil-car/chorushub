@@ -15,7 +15,12 @@ a = Analysis(
     noarchive=False,
 )
 
-# hg_libs = Tree()
+# Add external files.
+mono_bins = Tree(
+    'build/prime/mono/usr/bin',
+    prefix='usr/bin',
+    typecode='BINARY',
+)
 mono_libs = Tree(
     'build/prime/mono/usr/lib',
     prefix='usr/lib',
@@ -31,6 +36,7 @@ exe = EXE(
     a.scripts,
     a.binaries,
     a.datas,
+    mono_bins,
     mono_libs,
     sil_libs,
     [],
