@@ -4,7 +4,7 @@
 a = Analysis(
     ['src/chorushub/app.py'],
     pathex=[],
-    binaries=[],
+    binaries=['./env/bin/hg'],
     datas=[],
     hiddenimports=[],
     hookspath=[],
@@ -14,7 +14,7 @@ a = Analysis(
     noarchive=False,
 )
 
-hg_libs = Tree()
+# hg_libs = Tree()
 mono_libs = Tree('build/prime/mono', typecode='BINARY')
 sil_libs = Tree('build/prime/sil', typecode='BINARY')
 
