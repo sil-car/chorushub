@@ -9,9 +9,9 @@ icon: pkg-data/chorushub32x32.png
 description: |
   You install ChorusHub on one machine in the network and then it can can be
   used with WeSay, FieldWorks Language Explorer (FLEx) (with FLExBridge), and
-  OneStory Editor, or any other software using the Chorus technology. ChorusHub
-  installs and runs as a Windows Service, and can be run as a background process
-  on a Linux machine.
+  OneStory Editor, or any other software using the Chorus technology.
+  ChorusHub installs and runs as a Windows Service, and can be run as a
+  background process on a Linux machine.
 
 adopt-info: app # set version and grade from pyproject.toml
 confinement: strict
