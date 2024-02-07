@@ -1,10 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 # flake8: noqa
+import shutil
 
 a = Analysis(
     ['src/chorushub/app.py'],
     pathex=[],
-    binaries=[('./env/bin/hg', 'bin')],
+    binaries=[(shutil.which('hg'), 'usr/bin')],
     datas=[],
     hiddenimports=[],
     hookspath=[],
