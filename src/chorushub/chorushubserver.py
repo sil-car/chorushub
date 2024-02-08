@@ -15,7 +15,8 @@ else:
     app_root = Path('/')
 pythonnet.load(
     'mono',
-    libmono=f'{app_root}/usr/lib/libmono-2.0.so.1',
+    libmono=f"{app_root}/usr/lib/libmono-2.0.so.1",
+    assembly_dir=f"{app_root}/usr/lib/mono",
 )
 import clr  # noqa: E402
 
