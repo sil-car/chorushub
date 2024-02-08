@@ -16,7 +16,7 @@ else:
 pythonnet.load(
     'mono',
     libmono=f"{app_root}/usr/lib/libmono-2.0.so.1",
-    assembly_dir=f"{app_root}/usr/lib/mono",
+    assembly_dir=f"{app_root}/usr/lib/mono/4.5",
 )
 import clr  # noqa: E402
 
