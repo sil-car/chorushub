@@ -13,10 +13,10 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     app_root = Path(sys._MEIPASS)
 else:
     app_root = Path('/')
+sys.path.append(f"{app_root}/usr/lib/mono")
 pythonnet.load(
     'mono',
     libmono=f"{app_root}/usr/lib/libmono-2.0.so.1",
-    assembly_dir=f"{app_root}/usr/lib/mono/4.5",
 )
 import clr  # noqa: E402
 
