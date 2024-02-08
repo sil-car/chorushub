@@ -15,7 +15,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
 else:
     app_root = Path('/')
 # sys.path.append(f"{app_root}/usr/lib/mono")
-os.env['MONO_PATH'] = f"{app_root}/usr/lib/mono"
+os.environ['MONO_PATH'] = f"{app_root}/usr/lib/mono"
 pythonnet.load(
     'mono',
     libmono=f"{app_root}/usr/lib/libmono-2.0.so.1",
