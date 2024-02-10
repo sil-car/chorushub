@@ -252,7 +252,7 @@ parts:
         --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
       echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" > /etc/apt/sources.list.d/mono-official-stable.list
       apt update
-      apt install -y mono-devel # libmono-2.0-1
+      apt install -y libmono-2.0-1 mono-devel
       craftctl default
 
   app:
