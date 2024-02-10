@@ -1,6 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 # flake8: noqa
+import argparse
 import shutil
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-d', '--debug', action='store_true')
+args = parser.parse_args()
 
 a = Analysis(
     [shutil.which('chorushub'), shutil.which('hg')],
@@ -31,6 +36,24 @@ sil_libs = Tree('build/prime/sil', typecode='BINARY')
 
 pyz = PYZ(a.pure)
 
+kwargs = {
+    'name': 'chorushub',
+    'debug': False,
+    'bootloader_ignore_signals': False,
+    'strip': False,
+    'upx': True,
+    'upx_exclude': [],
+    'runtime_tmpdir': None,
+    'console': True,
+    'disable_windowed_traceback': False,
+    'argv_simulation': False,
+    'target_arch': None,
+    'codesign_identity': None,
+    'entitlements_file': None,
+}
+if args.debug:
+    kwargs['debug'] = True
+
 exe = EXE(
     pyz,
     a.scripts,
@@ -40,17 +63,5 @@ exe = EXE(
     mono_libs,
     sil_libs,
     [],
-    name='chorushub',
-    debug=False,
-    bootloader_ignore_signals=False,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
-    console=True,
-    disable_windowed_traceback=False,
-    argv_emulation=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
+    **kwargs,
 )
