@@ -5,7 +5,7 @@ source "${scripts_dir}/build--set-env.sh"
 
 DEBUG=
 if [[ $1 == '-d' || $1 == '--debug' ]]; then
-    DEBUG=--debug=all
+    DEBUG=--debug=bootloader
 fi
 
 # Ensure starting in repo root.
