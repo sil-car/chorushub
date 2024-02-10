@@ -19,6 +19,10 @@ base: core22
 architectures:
   - build-on: [amd64]
 
+layout:
+  /usr/lib/mono:
+    bind: $SNAP/usr/lib/mono
+
 apps:
   chorushub:
     command: bin/chorushub
