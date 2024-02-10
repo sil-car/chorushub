@@ -50,8 +50,7 @@ parts:
       # NOTE: flexbridge also has these packages, but they're older versions.
       debfile="fieldworks-applications_9.0.17.119+focal1_amd64.deb"
       wget "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
-      dpkg-deb -x "$debfile" base
-      tree $CRAFT_PART_SRC
+      dpkg-deb -x "$debfile" "${CRAFT_PART_SRC}/base"
 
       # Copy files to install dirs.
       libs=(
