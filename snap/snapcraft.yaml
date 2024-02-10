@@ -44,6 +44,13 @@ apps:
     command: bin/chorushub restart
     plugs: *allplugs
 
+package-repositories:
+  - type: apt
+    components: [main]
+    suites: [stable-focal]
+    key-id: 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+    url: https://download.mono-project.com/repo/ubuntu
+
 parts:
   sil-files:
     plugin: nil
@@ -241,18 +248,21 @@ parts:
   #     mkdir -p "${CRAFT_PART_INSTALL}/usr/share"
   #     rm -f "${CRAFT_PART_INSTALL}/usr/share/.mono"
   #     ln -r -s "${CRAFT_PART_INSTALL}/etc/mono/certstore" "${CRAFT_PART_INSTALL}/usr/share/.mono"
-    build-packages:
-      - ca-certificates
-      - dirmngr
-      - gnupg
-    override-build: |
-      gpg --homedir /tmp --no-default-keyring \
-        --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg \
-        --keyserver hkp://keyserver.ubuntu.com:80 \
-        --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-      echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | tee /etc/apt/sources.list.d/mono-official-stable.list
-      apt update
-      apt install -y libmono-2.0-1 mono-devel
+    # build-packages:
+    #   - ca-certificates
+    #   - dirmngr
+    #   - gnupg
+    # override-build: |
+    #   gpg --homedir /tmp --no-default-keyring \
+    #     --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg \
+    #     --keyserver hkp://keyserver.ubuntu.com:80 \
+    #     --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+    #   echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | tee /etc/apt/sources.list.d/mono-official-stable.list
+    #   apt update
+    #   apt install -y libmono-2.0-1 mono-devel
+    stage-packages:
+      - libmono-2.0-1
+      - mono-devel
 
   app:
     after:
