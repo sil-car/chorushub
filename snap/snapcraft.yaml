@@ -58,6 +58,7 @@ parts:
         LibChorus.dll
         SIL.Core.dll
       )
+      mkdir -p "${CRAFT_PART_INSTALL}/usr/lib"
       for l in "${libs[@]}"; do
         cp -av "${CRAFT_PART_SRC}/base/usr/lib/fieldworks/"$l "${CRAFT_PART_INSTALL}/usr/lib"
       done
