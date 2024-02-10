@@ -23,4 +23,4 @@ fi
 
 # Install app locally to create executable script.
 pip install .
-pyinstaller chorushub.spec
+pyinstaller --clean chorushub.spec
