@@ -3,6 +3,11 @@
 scripts_dir="$(dirname "$0")"
 source "${scripts_dir}/build--set-env.sh"
 
+DEBUG=
+if [[ $1 == '-d' || $1 == '--debug' ]]; then
+    DEBUG=--debug=all
+fi
+
 # Ensure starting in repo root.
 if [[ $PWD != "$REPO_DIR" ]]; then
     echo "Error: $0 must be run from the root of the repo."
@@ -23,4 +28,4 @@ fi
 
 # Install app locally to create executable script.
 pip install .
-pyinstaller --clean chorushub.spec
+pyinstaller --clean $DEBUG chorushub.spec
