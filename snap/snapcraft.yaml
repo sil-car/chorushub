@@ -43,6 +43,7 @@ parts:
     plugin: nil
     source: .
     build-packages:
+      - tree
       - wget
     override-build: |
       # Grab fieldworks-applications focal package.
@@ -50,6 +51,7 @@ parts:
       debfile="fieldworks-applications_9.0.17.119+focal1_amd64.deb"
       wget "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
       dpkg-deb -x "$debfile" base
+      tree $CRAFT_PART_SRC
 
       # Copy files to install dirs.
       libs=(
