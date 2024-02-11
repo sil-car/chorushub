@@ -101,15 +101,8 @@ parts:
       craftctl set grade="stable"
     build-packages:
       - python3-pip
-    # override-build: |
-    #   # Install dephell to convert pyproject.toml to setup.py, which is req'd. by craftctl.
-
-    #   # core20
-    #   # https://forum.snapcraft.io/t/building-a-core20-python-snap-using-pyproject-toml/22028/2
-    #   # pip3 install --user dephell[full]
-    #   # $HOME/.local/bin/dephell deps convert --from-path=pyproject.toml --from-format=poetry --to-path=setup.py --to-format=setuppy
-
-    #   craftctl default
+    stage-packages:
+      - xterm
 
   # cleanup:
   #   # https://forum.snapcraft.io/t/reduce-size-of-qt5-app-snap/31030/7
