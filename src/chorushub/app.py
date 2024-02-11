@@ -5,7 +5,7 @@ from .chorushubserver import ChorusHubServer
 
 def main():
     parser = argparse.ArgumentParser(prog='ChorusHub')
-    group = parser.add_mutually_exclusive_group
+    group = parser.add_mutually_exclusive_group()
     group.add_argument(
         'start', action='store_true',
         help='start the ChorusHub service'
