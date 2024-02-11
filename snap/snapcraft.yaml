@@ -28,6 +28,12 @@ layout:
     symlink: $SNAP/usr/lib/libmono-2.0.so.1
   /usr/lib/libmono-native.so:
     symlink: $SNAP/usr/lib/libmono-native.so
+  /usr/lib/ChorusHub.exe:
+    symlink: $SNAP/usr/lib/ChorusHub.exe
+  /usr/lib/LibChorus.dll:
+    symlink: $SNAP/usr/lib/LibChorus.dll
+  /usr/lib/SIL.Core.dll:
+    symlink: $SNAP/usr/lib/SIL.Core.dll
   /usr/lib/mono:
     symlink: $SNAP/usr/lib/mono
   /usr/share/.mono:
