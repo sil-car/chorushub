@@ -20,8 +20,8 @@ architectures:
   - build-on: [amd64]
 
 layout:
-  /etc/mono/config:
-    bind: $SNAP/etc/mono/config
+  /etc/mono:
+    bind: $SNAP/etc/mono # bind mounts have to be dirs
   /usr/bin/mono:
     symlink: $SNAP/usr/bin/mono # or bind:
   /usr/lib/libmono-2.0.so.1:
