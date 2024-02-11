@@ -1,35 +1,10 @@
-﻿import logging
-import os
-import sys
-
-from pathlib import Path
+﻿import clr
+import logging
 
 from .advertiser import Advertiser
 from .chorushuboptions import ChorusHubOptions
 from .hgserverunner import HgServeRunner
 
-# Setup Python.NET
-import pythonnet  # noqa: F401
-if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-    app_root = Path(sys._MEIPASS)
-    # sys.path.append(f"{app_root}/usr/lib/mono")
-    mono_path = [
-        f"{app_root}/usr/lib/mono/4.5",
-        # f"{app_root}/usr/lib/mono/gac",
-    ]
-    os.environ['MONO_GAC_PREFIX'] = f"{app_root}/usr/lib/mono"
-    os.environ['MONO_PATH'] = ':'.join(mono_path)
-elif os.getenv('SNAP'):
-    # app_root = Path(os.getenv('SNAP'))
-    app_root = Path('/')
-    # sys.path.append(f"{os.getenv('SNAP')}/usr/lib")
-else:
-    app_root = Path('/')
-pythonnet.load(
-    'mono',
-    libmono=f"{app_root}/usr/lib/libmono-2.0.so.1",
-)
-import clr  # noqa: E402
 
 clr.AddReference('System.ServiceModel')
 clr.AddReference('ChorusHub')

@@ -20,24 +20,24 @@ architectures:
   - build-on: [amd64]
 
 layout:
-  /etc/mono:
-    bind: $SNAP/etc/mono # bind mounts have to be dirs
-  /usr/bin/mono:
-    symlink: $SNAP/usr/bin/mono # or bind:
-  /usr/lib/libmono-2.0.so.1:
-    symlink: $SNAP/usr/lib/libmono-2.0.so.1
-  /usr/lib/libmono-native.so:
-    symlink: $SNAP/usr/lib/libmono-native.so
-  /usr/lib/ChorusHub.exe:
-    symlink: $SNAP/usr/lib/ChorusHub.exe
-  /usr/lib/LibChorus.dll:
-    symlink: $SNAP/usr/lib/LibChorus.dll
-  /usr/lib/SIL.Core.dll:
-    symlink: $SNAP/usr/lib/SIL.Core.dll
-  /usr/lib/mono:
-    symlink: $SNAP/usr/lib/mono
-  /usr/share/.mono:
-    symlink: $SNAP/etc/mono/certstore
+  # /etc/mono:
+  #   bind: $SNAP/etc/mono # bind mounts have to be dirs
+  # /usr/bin/mono:
+  #   symlink: $SNAP/usr/bin/mono # or bind:
+  # /usr/lib/libmono-2.0.so.1:
+  #   symlink: $SNAP/usr/lib/libmono-2.0.so.1
+  # /usr/lib/libmono-native.so:
+  #   symlink: $SNAP/usr/lib/libmono-native.so
+  # /usr/lib/ChorusHub.exe:
+  #   symlink: $SNAP/usr/lib/ChorusHub.exe
+  # /usr/lib/LibChorus.dll:
+  #   symlink: $SNAP/usr/lib/LibChorus.dll
+  # /usr/lib/SIL.Core.dll:
+  #   symlink: $SNAP/usr/lib/SIL.Core.dll
+  # /usr/lib/mono:
+  #   symlink: $SNAP/usr/lib/mono
+  # /usr/share/.mono:
+  #   symlink: $SNAP/etc/mono/certstore
 
 apps:
   chorushub:
@@ -49,13 +49,13 @@ apps:
       - network
       - removable-media
   start:
-    command: bin/chorushub start
+    command: bin/chorushub --start
     plugs: *allplugs
   stop:
-    command: bin/chorushub stop
+    command: bin/chorushub --stop
     plugs: *allplugs
   restart:
-    command: bin/chorushub restart
+    command: bin/chorushub --restart
     plugs: *allplugs
 
 package-repositories:
@@ -87,12 +87,14 @@ parts:
       dpkg-deb -x "$debfile" "${CRAFT_PART_SRC}"
 
       # Copy files to install dirs.
+      mkdir -p "${CRAFT_PART_INSTALL}/etc/chorushub"
+      cp -av "${CRAFT_PART_SRC}/data/mono/config" "${CRAFT_PART_INSTALL}/etc/chorushub"
+      mkdir -p "${CRAFT_PART_INSTALL}/usr/lib"
       libs=(
         ChorusHub.exe
         LibChorus.dll
         SIL.Core.dll
       )
-      mkdir -p "${CRAFT_PART_INSTALL}/usr/lib"
       for l in "${libs[@]}"; do
         cp -av "${CRAFT_PART_SRC}/usr/lib/fieldworks/"$l "${CRAFT_PART_INSTALL}/usr/lib"
       done
