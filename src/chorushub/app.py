@@ -54,7 +54,7 @@ def set_runtime_env():
     # export C_INCLUDE_PATH=${PKG_DIR}/include
     # export FONTCONFIG_PATH=${PKG_DIR}/etc/fonts
     # os.environ['LD_RUN_PATH'] = os.getenv('LD_LIBRARY_PATH', '')
-    os.environ['MONO_CONFIG'] = f"{app_root}/chorushub/config"
+    os.environ['MONO_CONFIG'] = f"{app_root}/etc/chorushub/config"
     os.environ['MONO_CFG_DIR'] = f"{app_root}/etc"
     os.environ['MONO_GAC_PREFIX'] = f"{app_root}"
     os.environ['MONO_PATH'] = ':'.join(mono_path)
