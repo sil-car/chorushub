@@ -86,9 +86,9 @@ parts:
         LibChorus.dll
         SIL.Core.dll
       )
-      mkdir -p "${CRAFT_PART_INSTALL}/usr/lib/mono/gac"
+      mkdir -p "${CRAFT_PART_INSTALL}/usr/lib"
       for l in "${libs[@]}"; do
-        cp -av "${CRAFT_PART_SRC}/usr/lib/fieldworks/"$l "${CRAFT_PART_INSTALL}/usr/lib/mono/gac"
+        cp -av "${CRAFT_PART_SRC}/usr/lib/fieldworks/"$l "${CRAFT_PART_INSTALL}/usr/lib"
       done
 
   app:

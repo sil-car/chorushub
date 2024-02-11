@@ -22,6 +22,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
 elif os.getenv('SNAP'):
     # app_root = Path(os.getenv('SNAP'))
     app_root = Path('/')
+    # sys.path.append(f"{os.getenv('SNAP')}/usr/lib")
 else:
     app_root = Path('/')
 pythonnet.load(
@@ -30,7 +31,6 @@ pythonnet.load(
 )
 import clr  # noqa: E402
 
-# sys.path.append('/home/nate/g/chorus-hub/dist')
 clr.AddReference('System.ServiceModel')
 clr.AddReference('ChorusHub')
 clr.AddReference('LibChorus')
