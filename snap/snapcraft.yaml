@@ -20,10 +20,14 @@ architectures:
   - build-on: [amd64]
 
 layout:
+  /usr/bin/mono:
+    symlink: $SNAP/usr/bin/mono # or bind:
+  /usr/lib/libmono-2.0.so.1:
+    symlink: $SNAP/usr/lib/libmono-2.0.so.1
   /usr/lib/mono:
-    symlink: $SNAP/usr/lib/mono # or bind:
+    symlink: $SNAP/usr/lib/mono
   /usr/share/.mono:
-    symlink: $SNAP/etc/mono/certstore # or bind:
+    symlink: $SNAP/etc/mono/certstore
 
 apps:
   chorushub:

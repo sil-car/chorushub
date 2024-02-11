@@ -20,7 +20,8 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     os.environ['MONO_GAC_PREFIX'] = f"{app_root}/usr/lib/mono"
     os.environ['MONO_PATH'] = ':'.join(mono_path)
 elif os.getenv('SNAP'):
-    app_root = Path(os.getenv('SNAP'))
+    # app_root = Path(os.getenv('SNAP'))
+    app_root = Path('/')
 else:
     app_root = Path('/')
 pythonnet.load(
