@@ -19,7 +19,7 @@ base: core22
 architectures:
   - build-on: [amd64]
 
-layout:
+# layout:
   # /etc/mono:
   #   bind: $SNAP/etc/mono # bind mounts have to be dirs
   # /usr/bin/mono:
