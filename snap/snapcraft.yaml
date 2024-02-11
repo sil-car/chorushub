@@ -21,7 +21,7 @@ architectures:
 
 layout:
   /etc/mono/config:
-    symlink: $SNAP/etc/mono/config
+    bind: $SNAP/etc/mono/config
   /usr/bin/mono:
     symlink: $SNAP/usr/bin/mono # or bind:
   /usr/lib/libmono-2.0.so.1:
