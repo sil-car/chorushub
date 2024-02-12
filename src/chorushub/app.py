@@ -1,4 +1,5 @@
 import argparse
+import logging
 import os
 import pythonnet
 import sys
@@ -10,6 +11,10 @@ from .chorushubserver import ChorusHubServer
 
 def main():
     parser = argparse.ArgumentParser(prog='ChorusHub')
+    parser.add_argument(
+        '-d', '--debug', action='store_true',
+        help=argparse.SUPPRESS,
+    )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         '--start', action='store_true',
@@ -23,8 +28,14 @@ def main():
         '--restart', action='store_true',
         help='restart the ChorusHub service'
     )
+    
     args = parser.parse_args()
+    log_level = logging.INFO
+    if args.debug:
+        log_level = logging.DEBUG
+    setup_logging(log_level)
     set_runtime_env()
+
     server = ChorusHubServer()
     if args.start:
         server.start()
@@ -64,11 +75,26 @@ def set_runtime_env():
     # export PKG_CONFIG_PATH=$PKG_DIR/lib64/pkgconfig:$PKG_CONFIG_PATH
     # export XDG_DATA_HOME=${PKG_DIR}/etc/fonts
 
+    mono_vars = [
+        'MONO_CONFIG',
+        'MONO_CFG_DIR',
+        'MONO_GAC_PREFIX',
+        'MONO_PATH',
+        'MONO_LOG_LEVEL',
+        'MONO_LOG_MASK',
+    ]
+    for v in mono_vars:
+        logging.debug(f"{os.getenv(v)=}")
+
     # Setup Python.NET
     pythonnet.load(
         'mono',
         libmono=f"{app_root}/usr/lib/libmono-2.0.so.1",
     )
+
+
+def setup_logging(level):
+    logging.basicConfig(level=level)
 
 
 if __name__ == '__main__':
