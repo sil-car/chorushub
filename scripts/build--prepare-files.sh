@@ -216,3 +216,5 @@ rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.6.2-api"
 rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.7-api"
 rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.7.1-api"
 rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.7.2-api"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.8-api"
+find "${PRIME_DIR}/mono" -name '*Microsoft.CodeAnalysis*' -delete
