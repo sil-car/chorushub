@@ -210,6 +210,13 @@ ln -r -s "${STAGE_DIR}/mono/usr/lib/libmono-native.so" "${STAGE_DIR}/mono/usr/li
 # Copy needed files to prime dir.
 cp -av "${STAGE_DIR}/mono"/* "${PRIME_DIR}/mono"
 # Remove unwanted files from prime dir.
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/2.0-api"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/3.5-api"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.0"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.0-api"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.5-api"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.5.1-api"
+rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.5.2-api"
 rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.6-api"
 rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.6.1-api"
 rm -rf "${PRIME_DIR}/mono/usr/lib/mono/4.6.2-api"
