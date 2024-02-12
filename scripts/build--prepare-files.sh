@@ -29,7 +29,7 @@ libs=(
   LibChorus.dll
   SIL.Core.dll
 )
-mkdir -p "${PRIME_DIR}/sil/usr/lib"
+mkdir -p "${PRIME_DIR}/usr/lib"
 for l in "${libs[@]}"; do
   cp -av "${STAGE_DIR}/sil/usr/lib/fieldworks/${l}" "${PRIME_DIR}/sil/usr/lib"
 done
@@ -199,8 +199,11 @@ for p in "${pkgs[@]}"; do
   dpkg-deb -x "${PKGS_DIR}/${p}" "${STAGE_DIR}/mono"
 done
 # Fix wrong symlink.
-mkdir -p "${STAGE_DIR}/mono/usr/share"
-rm -f "${STAGE_DIR}/mono/usr/share/.mono"
-ln -r -s "${STAGE_DIR}/mono/etc/mono/certstore" "${STAGE_DIR}/mono/usr/share/.mono"
+# mkdir -p "${STAGE_DIR}/mono/usr/share"
+# rm -f "${STAGE_DIR}/mono/usr/share/.mono"
+# ln -r -s "${STAGE_DIR}/mono/etc/mono/certstore" "${STAGE_DIR}/mono/usr/share/.mono"
 # Copy needed files to prime dir.
 cp -av "${STAGE_DIR}/mono"/* "${PRIME_DIR}/mono"
+# Add mono config file.
+mkdir -p "${PRIME_DIR}/mono/etc/chorushub"
+cp -av "data/mono/config" "${PRIME_DIR}/mono/etc/chorushub"

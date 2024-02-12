@@ -26,14 +26,29 @@ mono_bins = Tree(
     prefix='usr/bin',
     typecode='BINARY',
 )
+mono_etc = Tree(
+    'build/prime/mono/etc/mono',
+    prefix='etc/mono',
+    typecode='DATA',
+)
 mono_libs = Tree(
     'build/prime/mono/usr/lib',
     prefix='usr/lib',
-    excludes=['pkgconfig'],
+    # excludes=['pkgconfig'],
     typecode='BINARY',
 )
-sil_libs = Tree('build/prime/sil', typecode='BINARY')
+sil_etc = Tree(
+    'build/prime/sil/etc/chorushub',
+    prefix='etc/chorushub',
+    typecode='DATA',
+)
+sil_libs = Tree(
+    'build/prime/sil/usr/lib',
+    prefix='usr/lib',
+    typecode='BINARY'
+)
 
+# Assemble final package.
 pyz = PYZ(a.pure)
 
 kwargs = {
@@ -60,7 +75,9 @@ exe = EXE(
     a.binaries,
     a.datas,
     mono_bins,
+    mono_etc,
     mono_libs,
+    sil_etc,
     sil_libs,
     [],
     **kwargs,
