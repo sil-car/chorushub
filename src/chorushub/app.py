@@ -6,8 +6,6 @@ import sys
 
 from pathlib import Path
 
-from .chorushubserver import ChorusHubServer
-
 
 def main():
     parser = argparse.ArgumentParser(prog='ChorusHub')
@@ -28,7 +26,7 @@ def main():
         '--restart', action='store_true',
         help='restart the ChorusHub service'
     )
-    
+
     args = parser.parse_args()
     log_level = logging.INFO
     if args.debug:
@@ -36,6 +34,7 @@ def main():
     setup_logging(log_level)
     set_runtime_env()
 
+    from .chorushubserver import ChorusHubServer
     server = ChorusHubServer()
     if args.start:
         server.start()
