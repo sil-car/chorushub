@@ -66,7 +66,7 @@ def set_runtime_env():
     # os.environ['LD_RUN_PATH'] = os.getenv('LD_LIBRARY_PATH', '')
     os.environ['MONO_CONFIG'] = f"{app_root}/etc/chorushub/config"
     os.environ['MONO_CFG_DIR'] = f"{app_root}/etc"
-    os.environ['MONO_GAC_PREFIX'] = f"{app_root}"
+    os.environ['MONO_GAC_PREFIX'] = f"{app_root}/usr"
     os.environ['MONO_PATH'] = ':'.join(mono_path)
     os.environ['MONO_LOG_LEVEL'] = 'debug'
     os.environ['MONO_LOG_MASK'] = 'cfg,dll'
@@ -83,7 +83,7 @@ def set_runtime_env():
         'MONO_LOG_MASK',
     ]
     for v in mono_vars:
-        logging.debug(f"{os.getenv(v)=}")
+        logging.debug(f"{v}={os.getenv(v)}")
 
     # Setup Python.NET
     pythonnet.load(
