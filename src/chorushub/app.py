@@ -6,12 +6,18 @@ import sys
 
 from pathlib import Path
 
+from .chorushuboptions import ChorusHubOptions
+
 
 def main():
     parser = argparse.ArgumentParser(prog='ChorusHub')
     parser.add_argument(
-        '-d', '--debug', action='store_true',
+        '--debug', action='store_true',
         help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        '-d', '--root-dir',
+        help='choose custom root dir for the ChorusHub service'
     )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -31,11 +37,15 @@ def main():
     log_level = logging.INFO
     if args.debug:
         log_level = logging.DEBUG
+    if args.root_dir and Path(args.root_dir).is_dir():
+        chorushuboptions = ChorusHubOptions(args.root_dir)
+    else:
+        chorushuboptions = ChorusHubOptions()
     setup_logging(log_level)
     set_runtime_env()
 
     from .chorushubserver import ChorusHubServer
-    server = ChorusHubServer()
+    server = ChorusHubServer(chorushuboptions=chorushuboptions)
     if args.start:
         server.start()
     elif args.stop:

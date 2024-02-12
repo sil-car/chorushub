@@ -23,7 +23,7 @@ class Advertiser:
         self._endpoint = (ip, self.port)
         self._thread = threading.Thread(target=self.work)
         self._thread.start()
-        logging.debug(f"Started Advertiser on {ip}:{self.port}.")
+        logging.info(f"Started Advertiser on {ip}:{self.port}.")
 
     def stop(self):
         if self._thread is None:
@@ -33,7 +33,7 @@ class Advertiser:
         self._thread.kill()
         self._thread.join(timeout=2)
         self._thread = None
-        logging.debug("Stopped Advertiser.")
+        logging.info("Stopped Advertiser.")
 
     def dispose(self):
         self.stop()

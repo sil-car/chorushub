@@ -3,11 +3,6 @@ from pathlib import Path
 
 
 class ChorusHubOptions:
-    if os.name == 'posix':
-        _root_directory = Path.home() / 'ChorusHub'
-    else:
-        _root_directory = Path('C:') / 'ChorusHub'
-
     # These numbers were selected by looking at the IANA registry and
     # intentionally *not* picking, "undefined" ones (which could become
     # defined in the future), but rather ones already assigned to stuff
@@ -24,6 +19,15 @@ class ChorusHubOptions:
     # "Automatic Dependent Surveillance"
     # </summary>
     mercurial_port = 5913
+
+    def __init__(self, root_dir=None):
+        if root_dir:
+            self._root_directory = Path(root_dir)
+        else:
+            if os.name == 'posix':
+                self._root_directory = Path.home() / 'ChorusHub'
+            else:
+                self._root_directory = Path('C:') / 'ChorusHub'
 
     # <summary>
     # Path to a folder where all the repositories will be placed.

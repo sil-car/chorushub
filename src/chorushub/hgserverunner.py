@@ -19,7 +19,7 @@ class HgServeRunner:
         try:
             old_hg = self.find_running_hg_proc()
             if old_hg:
-                logging.debug(f"hg server already running: {old_hg}")
+                logging.info(f"hg server already running: {old_hg}")
                 old_hg.kill()
                 try:
                     old_hg.wait(timeout=10)
@@ -31,7 +31,7 @@ class HgServeRunner:
                         "'hg' process is running."
                     )
                     return False
-                logging.debug(f"Stopped {old_hg}")
+                logging.info(f"Stopped {old_hg}")
 
             if self._access_log_path.exists():
                 self._access_log_path.unlink()
@@ -65,7 +65,7 @@ class HgServeRunner:
                 stdout=os.devnull,
                 stderr=subprocess.STDOUT,
             )
-            logging.debug(f"Started hg server from {str(self._root_folder)} on *:{self.port}.")  # noqa: E501
+            logging.info(f"Started hg server from {str(self._root_folder)} on *:{self.port}.")  # noqa: E501
             return True
 
         except Exception as e:
@@ -90,7 +90,7 @@ class HgServeRunner:
             #     logging.error("***Gave up on hg server stopping")
             # self._hg_serve_thread = None
             self._hg_serve_proc = None
-            logging.debug("Stopped hg server.")
+            logging.info("Stopped hg server.")
 
     def dispose(self):
         self.stop()
@@ -134,5 +134,5 @@ class HgServeRunner:
     def find_running_hg_proc(self):
         for p in psutil.process_iter():
             if p.name() == 'hg':
-                logging.debug(f"hg proc: {p}")
+                logging.info(f"hg proc: {p}")
                 return p

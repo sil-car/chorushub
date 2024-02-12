@@ -22,8 +22,12 @@ from System.ServiceModel.Description import ServiceDebugBehavior  # noqa: E402
 class ChorusHubServer(IDisposable):
     __namespace__ = 'ChorusHub'
 
-    def __init__(self):
-        self.service_port = ChorusHubOptions.service_port
+    def __init__(self, chorushuboptions=None):
+        if not chorushuboptions:
+            self.chorushuboptions = ChorusHubOptions()
+        else:
+            self.chorushuboptions = chorushuboptions
+        self.service_port = self.chorushuboptions.service_port
         self._hg_server = None
         self._advertiser = None
         self._service_host = None
@@ -39,15 +43,15 @@ class ChorusHubServer(IDisposable):
             # Mercurial (hg) service
             if include_mercurial_server:
                 self._hg_server = HgServeRunner(
-                    ChorusHubOptions._root_directory,
-                    ChorusHubOptions.mercurial_port,
+                    self.chorushuboptions._root_directory,
+                    self.chorushuboptions.mercurial_port,
                 )
                 if not self._hg_server.start():
                     logging.error("Failed to start Hg Server")
                     return False
 
             # Advertiser service
-            self._advertiser = Advertiser(ChorusHubOptions.advertising_port)
+            self._advertiser = Advertiser(self.chorushuboptions.advertising_port)  # noqa: E501
             self._advertiser.start()
 
             # .NET service
