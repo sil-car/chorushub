@@ -1,5 +1,4 @@
 import logging
-import os
 import psutil
 import subprocess
 # import threading
@@ -16,22 +15,21 @@ class HgServeRunner:
         self._hg_serve_proc = None
 
     def start(self):
-        try:
-            old_hg = self.find_running_hg_proc()
-            if old_hg:
-                logging.info(f"hg server already running: {old_hg}")
-                old_hg.kill()
-                try:
-                    old_hg.wait(timeout=10)
-                except psutil.TimeoutExpired:
-                    logging.error(
-                        "ChorusHub was unable to stop an old hg from"
-                        "running. It will now give up. You should stop the"
-                        "server and run it again after killing whatever"
-                        "'hg' process is running."
-                    )
-                    return False
-                logging.info(f"Stopped {old_hg}")
+        old_hg = self.find_running_hg_proc()
+        if old_hg:
+            logging.info(f"hg server already running: {old_hg}")
+            old_hg.kill()
+            try:
+                old_hg.wait(timeout=10)
+            except psutil.TimeoutExpired:
+                logging.error(
+                    "ChorusHub was unable to stop an old hg from"
+                    "running. It will now give up. You should stop the"
+                    "server and run it again after killing whatever"
+                    "'hg' process is running."
+                )
+                return False
+            logging.info(f"Stopped {old_hg}")
 
             if self._access_log_path.exists():
                 logging.debug(f"Access log found at {self._access_log_path}")
@@ -46,6 +44,7 @@ class HgServeRunner:
 
             self.write_config_file()
 
+        try:
             arguments = [
                 "serve",
                 "-A", self._access_log_path.name,
@@ -66,14 +65,16 @@ class HgServeRunner:
             self._hg_serve_proc = subprocess.Popen(
                 ['hg', *arguments],
                 cwd=str(self._root_folder),
-                stdout=os.devnull,
+                stdout=subprocess.DEVNULL,
                 stderr=subprocess.STDOUT,
             )
             logging.info(f"Started hg server from {self._root_folder} on *:{self.port}.")  # noqa: E501
             return True
 
         except Exception as e:
-            logging.error(f"{e}")
+            logging.error(e)
+            logging.error(e.args)
+            logging.error(e.__traceback__)
             return False
 
     def stop(self):
@@ -139,7 +140,12 @@ class HgServeRunner:
                         subprocess.run(['hg', 'init', directory])
 
     def find_running_hg_proc(self):
-        for p in psutil.process_iter():
-            if p.name() == 'hg':
-                logging.info(f"hg proc: {p}")
-                return p
+        try:
+            for p in psutil.process_iter():
+                if p.name() == 'hg':
+                    logging.info(f"hg proc: {p}")
+                    return p
+        except Exception as e:
+            logging.error(e)
+            logging.error(e.args)
+            logging.error(e.__traceback__)

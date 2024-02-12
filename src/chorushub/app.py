@@ -42,6 +42,7 @@ def main():
     else:
         chorushuboptions = ChorusHubOptions()
     setup_logging(log_level)
+    logging.debug(f"cli args: {args}")
     set_runtime_env()
 
     from .chorushubserver import ChorusHubServer
@@ -57,13 +58,16 @@ def main():
 
 def set_runtime_env():
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        logging.debug("Running via PyInstaller app")
         app_root = Path(sys._MEIPASS)
         # sys.path.append(f"{app_root}/usr/lib/mono")
     elif os.getenv('SNAP'):
+        logging.debug("Running via snap package")
         # app_root = Path(os.getenv('SNAP'))
         app_root = Path(f"{os.getenv('SNAP')}")
         # sys.path.append(f"{os.getenv('SNAP')}/usr/lib")
     else:
+        logging.debug("Running via undefined installation")
         app_root = Path('/')
     mono_path = [
         f"{app_root}/usr/lib",

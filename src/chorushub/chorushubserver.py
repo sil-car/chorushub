@@ -39,6 +39,7 @@ class ChorusHubServer(IDisposable):
     # involve send/receive/clone, you can speed things up by setting this
     # to false</param>
     def start(self, include_mercurial_server=True):
+        logging.debug(f"running {self.__class__}.start()")
         try:
             # Mercurial (hg) service
             if include_mercurial_server:
@@ -98,6 +99,7 @@ class ChorusHubServer(IDisposable):
                 debug.IncludeExceptionDetailInFaults = True
 
     def stop(self):
+        logging.debug(f"running {self.__class__}.stop()")
         if self._advertiser is not None:
             self._advertiser.stop()
             self._advertiser = None
@@ -111,6 +113,7 @@ class ChorusHubServer(IDisposable):
         self._service_host = None
 
     def dispose(self):
+        logging.debug(f"running {self.__class__}.dispose()")
         self.stop()
 
     def do_occasional_background_tasks(self):
