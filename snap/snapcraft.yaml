@@ -49,13 +49,13 @@ apps:
       - network
       - removable-media
   start:
-    command: bin/chorushub --start --root-dir=$SNAP_COMMON/ChorusHub
+    command: bin/chorushub --start --root-dir $SNAP_COMMON/ChorusHub
     plugs: *allplugs
   stop:
     command: bin/chorushub --stop
     plugs: *allplugs
   restart:
-    command: bin/chorushub --restart --root-dir=$SNAP_COMMON/ChorusHub
+    command: bin/chorushub --restart --root-dir $SNAP_COMMON/ChorusHub
     plugs: *allplugs
 
 package-repositories:
