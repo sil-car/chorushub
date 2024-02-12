@@ -1,6 +1,8 @@
 ﻿import clr
 import logging
 
+from pathlib import Path
+
 from .advertiser import Advertiser
 from .chorushuboptions import ChorusHubOptions
 from .hgserverunner import HgServeRunner
@@ -40,6 +42,8 @@ class ChorusHubServer(IDisposable):
     # to false</param>
     def start(self, include_mercurial_server=True):
         logging.debug(f"running {self.__class__}.start()")
+        root_dir = Path(self.chorushuboptions._root_directory)
+        root_dir.mkdir(exist_ok=True, parents=True)
         try:
             # Mercurial (hg) service
             if include_mercurial_server:
