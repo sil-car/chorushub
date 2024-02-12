@@ -83,7 +83,7 @@ def set_runtime_env():
     os.environ['MONO_GAC_PREFIX'] = f"{app_root}/usr"
     os.environ['MONO_PATH'] = ':'.join(mono_path)
     os.environ['MONO_LOG_LEVEL'] = 'debug'
-    os.environ['MONO_LOG_MASK'] = 'cfg,dll'
+    os.environ['MONO_LOG_MASK'] = 'asm,cfg,dll,io-layer'
     # export MONO_REGISTRY_PATH=~/.mono/registry
     # export PKG_CONFIG_PATH=$PKG_DIR/lib64/pkgconfig:$PKG_CONFIG_PATH
     # export XDG_DATA_HOME=${PKG_DIR}/etc/fonts
