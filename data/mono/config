@@ -13,7 +13,7 @@
 	<dllmap dll="MonoPosixHelper" target="$mono_libdir/libMonoPosixHelper.so" os="!windows" />
 	<!-- <dllmap dll="System.Native" target="$mono_libdir/libmono-native.so" os="!windows" /> -->
 	<dllmap dll="System.Native" target="libmono-native.so" os="!windows" />
-	<dllmap dll="System.Net.Security.Native" target="$mono_libdir/libmono-native.so" os="!windows" />
+	<dllmap dll="System.Net.Security.Native" target="libmono-native.so" os="!windows" />
 	<dllmap dll="System.Security.Cryptography.Native.Apple" target="$mono_libdir/libmono-native.so" os="osx" />
 	<dllmap dll="libmono-btls-shared" target="$mono_libdir/libmono-btls-shared.so" os="!windows" />
 	<dllmap dll="i:msvcrt" target="libc.so.6" os="!windows"/>

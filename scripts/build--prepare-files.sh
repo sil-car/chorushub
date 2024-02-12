@@ -18,7 +18,7 @@ clean() {
 
 # Grab fieldworks-applications focal package.
 mkdir -p "${STAGE_DIR}/sil"
-mkdir -p "${PRIME_DIR}/sil"
+mkdir -p "${PRIME_DIR}/sil/usr/lib"
 # NOTE: flexbridge also has these packages, but they're older versions.
 debfile="fieldworks-applications_9.0.17.119+focal1_amd64.deb"
 wget -NP "$PKGS_DIR" "http://packages.sil.org/ubuntu/pool/main/f/fieldworks/${debfile}"
@@ -33,6 +33,9 @@ mkdir -p "${PRIME_DIR}/usr/lib"
 for l in "${libs[@]}"; do
   cp -av "${STAGE_DIR}/sil/usr/lib/fieldworks/${l}" "${PRIME_DIR}/sil/usr/lib"
 done
+# Add mono config file.
+mkdir -p "${PRIME_DIR}/sil/etc/chorushub"
+cp -av "data/mono/config" "${PRIME_DIR}/sil/etc/chorushub"
 
 # Grab mono-6.12 focal packages.
 mkdir -p "${STAGE_DIR}/mono"
@@ -198,12 +201,11 @@ for p in "${pkgs[@]}"; do
   wget -NP "$PKGS_DIR" "https://download.mono-project.com/repo/ubuntu/pool/main/m/mono/${p}"
   dpkg-deb -x "${PKGS_DIR}/${p}" "${STAGE_DIR}/mono"
 done
+# Make needed symlinks.
+ln -r -s "${STAGE_DIR}/mono/usr/lib/libmono-native.so" "${STAGE_DIR}/mono/usr/lib/mono/4.5"
 # Fix wrong symlink.
 # mkdir -p "${STAGE_DIR}/mono/usr/share"
 # rm -f "${STAGE_DIR}/mono/usr/share/.mono"
 # ln -r -s "${STAGE_DIR}/mono/etc/mono/certstore" "${STAGE_DIR}/mono/usr/share/.mono"
 # Copy needed files to prime dir.
 cp -av "${STAGE_DIR}/mono"/* "${PRIME_DIR}/mono"
-# Add mono config file.
-mkdir -p "${PRIME_DIR}/mono/etc/chorushub"
-cp -av "data/mono/config" "${PRIME_DIR}/mono/etc/chorushub"
