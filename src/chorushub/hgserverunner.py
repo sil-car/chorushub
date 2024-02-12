@@ -34,10 +34,13 @@ class HgServeRunner:
                 logging.info(f"Stopped {old_hg}")
 
             if self._access_log_path.exists():
+                logging.debug(f"Access log found at {self._access_log_path}")
                 self._access_log_path.unlink()
+                logging.debug("Access log removed.")
 
             if not self._root_folder.is_dir():
                 self._root_folder.mkdir()
+                logging.debug(f"Created root-dir: {self._root_folder}")
 
             logging.info("Starting Mercurial Server")
 
@@ -47,7 +50,7 @@ class HgServeRunner:
                 "serve",
                 "-A", self._access_log_path.name,
                 "-E", self._log_path.name,
-                "-p", f"{self.port}",
+                "-p", str(self.port),
                 "--verbose",
             ]
             # TODO: See if there is a python library for Mercurial rather than
@@ -59,13 +62,14 @@ class HgServeRunner:
             #     daemon=True,
             # )
             # self._hg_serve_thread.start()
+            logging.debug(f"hg cmd: {' '.join(['hg', *arguments])}")
             self._hg_serve_proc = subprocess.Popen(
                 ['hg', *arguments],
                 cwd=str(self._root_folder),
                 stdout=os.devnull,
                 stderr=subprocess.STDOUT,
             )
-            logging.info(f"Started hg server from {str(self._root_folder)} on *:{self.port}.")  # noqa: E501
+            logging.info(f"Started hg server from {self._root_folder} on *:{self.port}.")  # noqa: E501
             return True
 
         except Exception as e:
@@ -102,14 +106,17 @@ class HgServeRunner:
             "push_ssl = No\n"
             "\n"
             "[paths]\n"
-            f"/ = {self._root_folder}/*"
+            f"/ = {self._root_folder}/*\n"
         )
 
         config_path = Path(self._root_folder) / 'hgweb.config'
         if config_path.exists():
+            logging.debug(f"Config file exists at {config_path}")
             config_path.unlink()
+            logging.debug("Config file removed.")
 
         config_path.write_text(config)
+        logging.debug(f"Config file saved to {config_path}")
 
     def check_for_failed_pushes(self):
         if not self._access_log_path.exists():
