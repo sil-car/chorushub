@@ -1,6 +1,6 @@
 import logging
 import socket
-import threading
+import multiprocessing
 import time
 
 from .chorushuboptions import ChorusHubOptions
@@ -12,7 +12,7 @@ from .chorushuboptions import ChorusHubOptions
 
 class Advertiser:
     def __init__(self, port):
-        self._thread = None
+        self._proc = None
         self._endpoint = None
         self._send_bytes = None
         self._current_ip_address = None
@@ -21,18 +21,18 @@ class Advertiser:
     def start(self):
         ip = "255.255.255.255"
         self._endpoint = (ip, self.port)
-        self._thread = threading.Thread(target=self.work)
-        self._thread.start()
+        self._proc = multiprocessing.Process(target=self.work)
+        self._proc.start()
         logging.info(f"Started Advertiser on {ip}:{self.port}.")
 
     def stop(self):
-        if self._thread is None:
+        if self._proc is None:
             return
 
         logging.info("Advertiser Stopping...")
-        self._thread.kill()
-        self._thread.join(timeout=2)
-        self._thread = None
+        self._proc.kill()
+        self._proc.join(timeout=2)
+        self._proc = None
         logging.info("Stopped Advertiser.")
 
     def dispose(self):

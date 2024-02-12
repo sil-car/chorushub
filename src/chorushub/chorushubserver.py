@@ -77,6 +77,7 @@ class ChorusHubServer(IDisposable):
             else:
                 log_message += f"{e}"
             logging.error(log_message)
+            self._advertiser._proc.kill()
             self._hg_server._hg_serve_proc.kill()
             return False
 
