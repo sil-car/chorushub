@@ -32,23 +32,23 @@ jobs:
         echo $sha
         echo "sha_short=${sha:0:7}" >> $GITHUB_OUTPUT
 
-    - name: Set up Python #3.12
+    - name: Set up Python 3.8
       uses: actions/setup-python@v4
       with:
-        # python-version: '3.12'
+        python-version: '3.8'
         cache: pip
 
     - name: Install dependencies
       run: |
-        # apt-get install python3-tk
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install pyinstaller
+        ./script/build--prepare-files.sh
 
     - name: Build with pyinstaller
       id: pyinstaller
       run: |
-        pyinstaller chorushub.spec --clean
+        ./scripts/build-pyinstaller.sh
         echo "bin_name=chorushub" >> $GITHUB_OUTPUT
 
     - name: Upload artifact
