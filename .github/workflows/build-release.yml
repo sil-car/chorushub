@@ -43,7 +43,7 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install pyinstaller
-        ${GITHUB_WORKSPACE}/script/build--prepare-files.sh
+        ${GITHUB_WORKSPACE}/scripts/build--prepare-files.sh
 
     - name: Build with pyinstaller
       id: pyinstaller
