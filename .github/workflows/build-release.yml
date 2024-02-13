@@ -48,7 +48,7 @@ jobs:
     - name: Build with pyinstaller
       id: pyinstaller
       run: |
-        VIRTUAL_ENV=1 # work around build script check
+        export VIRTUAL_ENV=1 # work around build script check
         ${GITHUB_WORKSPACE}/scripts/build-pyinstaller.sh
         echo "bin_name=chorushub" >> $GITHUB_OUTPUT
 
