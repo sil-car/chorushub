@@ -76,4 +76,4 @@ jobs:
         tag_name: ${{ inputs.tag }}
         draft: true
         prerelease: ${{ inputs.prerelease }}
-        files: ${{ needs.build.outputs.bin_name }}
+        files: ${{ build.outputs.bin_name }}
