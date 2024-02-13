@@ -43,12 +43,12 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install pyinstaller
-        ./script/build--prepare-files.sh
+        ${GITHUB_WORKSPACE}/script/build--prepare-files.sh
 
     - name: Build with pyinstaller
       id: pyinstaller
       run: |
-        ./scripts/build-pyinstaller.sh
+        ${GITHUB_WORKSPACE}/scripts/build-pyinstaller.sh
         echo "bin_name=chorushub" >> $GITHUB_OUTPUT
 
     - name: Upload artifact
